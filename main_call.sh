@@ -6,5 +6,6 @@ bash version_check.sh
 bash partitioning.sh
 bash mount_partitions.sh
 bash packages.sh
+bash limited_dir_layout.sh 
 
 
