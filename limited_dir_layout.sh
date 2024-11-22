@@ -13,3 +13,7 @@ case $(uname -m) in
 esac
 
 mkdir -pv $LFS/tools
+
+#Create new user lfs and group lfs in the aim of not f**ng up my computer
+groupadd lfs
+useradd -s /bin/bash -g lfs -m -k /dev/null lfs
