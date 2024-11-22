@@ -2,7 +2,8 @@
 
 source .env
 
-mkdir -p -v $LSF/{etc,var} $LSF/usr/{bin,var,lib}
+printf "${GREEN}LIMITED_DIR_LAYOUT.SH -- START${NC}\n"
+mkdir -p -v $LFS/{etc,var} $LFS/usr/{bin,var,lib}
 
 for i in bin lib sbin; do
 	ln -sv usr/$i $LFS/$i
@@ -22,3 +23,5 @@ chown -v lfs $LFS/{usr{,/*},lib,var,etc,bin,sbin,tools}
 case $(uname -m) in
   x86_64) chown -v lfs $LFS/lib64 ;;
 esac
+
+printf "${GREEN}LIMITED_DIR_LAYOUT.SH -- END${NC}\n\n"

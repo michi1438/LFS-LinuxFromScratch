@@ -52,6 +52,7 @@ do
 EOF
 		break
 	elif [ "$answer" == "no" ]; then 
+		printf "${GREEN}PARTITIONING.SH -- END${NC}\n\n"
 		exit
 	else
 		printf "${RED}PARTITIONING.SH: Answers can only be \"yes\" or \"no\" ?${NC}\n"
