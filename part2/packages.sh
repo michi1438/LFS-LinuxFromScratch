@@ -40,9 +40,6 @@ CHECK=$(md5sum -c ../md5sums | grep -o "OK" | wc -l)
 CHECK=$(md5sum -c ../md5sums | grep -o "OK" | wc -l)
 	if [ "${CHECK}" != "$(cat ../md5sums | wc -l)" ]; then
 		printf "${RED}PACKAGES.SH: The md5-sums either aren't all OK or there is not the same number of packages and signatures...${NC}\n"
-	else
-		rm $LFS/md5sums
-		rm -rf ${LFS}/pkg_list/
 	fi
 popd
 
