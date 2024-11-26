@@ -3,15 +3,16 @@
 #II. Preparing for the Build
 
 source .env #Sourcing .env for Shell and subShells variable...
+
 PART_2_DIR=part2/
 PART_3_DIR=part3/
 
 
 if [ "$USER" = "root" ] 
 then
-	if [ -n "$DISK" ]; then 
+	if [ -z "$DISK" ]; then 
 		printf "${RED}MAIN_CALL.SH: .env is not set fill and change the name of \
-		   the .env_layout file...${NC}\n"
+ the .env_layout file...${NC}\n"
 	fi
 
 	bash ${PART_2_DIR}version_check.sh
@@ -23,19 +24,21 @@ then
 
 	chown -R lfs:lfs part3/
 	chown lfs:lfs main_call.sh
-	cp -vr /root/LFS_12.2/* /home/lfs/
-	cp -vr /root/LFS_12.2/.env /home/lfs/
+	ln main_call.sh /home/lfs/main_call_lfs.sh
+	mkdir -v /home/lfs/part3/
+	ln part3/* /home/lfs/part3/
 
 	[ ! -e /etc/bash.bashrc ] || mv -v /etc/bash.bashrc /etc/bash.bashrc.NOUSE
 
-	printf "${RED}MAIN_CALL.SH: You have been switched to lfs user call bash main_call.sh\
+	printf "${RED}MAIN_CALL.SH: You have been switched to lfs user call bash main_call.sh \
 this will run the rest of the script...${NC}\n"
 	su --login lfs
 
 	[ ! -e /etc/bash.bashrc.NOUSE ] || mv -v /etc/bash.bashrc.NOUSE /etc/bash.bashrc
 elif [ "$USER" = "lfs" ]
 then
-	echo "hello from LFSuser"
+	bash ${PART_3_DIR}Binutils_pass_1.sh
+	bash ${PART_3_DIR}Gcc_pass_1.sh
 
 fi
 
