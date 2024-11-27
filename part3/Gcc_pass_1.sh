@@ -1,4 +1,3 @@
-
 source .env #Sourcing .env for Shell and subShells variable...
 
 printf "${GREEN}GCC_PASS_1.SH -- START${NC}\n"

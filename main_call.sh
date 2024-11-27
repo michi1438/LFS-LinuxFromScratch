@@ -39,6 +39,7 @@ elif [ "$USER" = "lfs" ]
 then
 	bash ${PART_3_DIR}Binutils_pass_1.sh
 	bash ${PART_3_DIR}Gcc_pass_1.sh
+	bash ${PART_3_DIR}Linux-6.10.5_api_headers.sh
 
 fi
 
