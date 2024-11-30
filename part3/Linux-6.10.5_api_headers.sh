@@ -3,7 +3,7 @@ source .env #Sourcing .env for Shell and subShells variable...
 printf "${GREEN}LINUX-6.10.5_API_HEADERS.SH -- START${NC}\n"
 cd $LFS/sources/
 
-if [ ! -d "${LFS}/sources/linux-6.10.5.tar.xz" ]; then
+if [ ! -d "${LFS}/sources/linux-6.10.5/" ]; then
 
 	tar -xf linux-6.10.5.tar.xz
 	cd linux-6.10.5/

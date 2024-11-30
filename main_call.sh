@@ -40,7 +40,8 @@ then
 	bash ${PART_3_DIR}Binutils_pass_1.sh
 	bash ${PART_3_DIR}Gcc_pass_1.sh
 	bash ${PART_3_DIR}Linux-6.10.5_api_headers.sh
-
+	bash ${PART_3_DIR}Glibc-2.40.sh
+	bash ${PART_3_DIR}Libstdc++_of_gcc.sh
 fi
 
 #If test suites fail a lot... https://www.linuxfromscratch.org/lfs/faq.html#no-ptys
