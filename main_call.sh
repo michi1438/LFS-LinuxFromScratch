@@ -37,11 +37,20 @@ this will run the rest of the script...${NC}\n"
 	[ ! -e /etc/bash.bashrc.NOUSE ] || mv -v /etc/bash.bashrc.NOUSE /etc/bash.bashrc
 elif [ "$USER" = "lfs" ]
 then
+
+	## chapter 5 compiling the cross toolchain
+
 	bash ${PART_3_DIR}Binutils_pass_1.sh
 	bash ${PART_3_DIR}Gcc_pass_1.sh
 	bash ${PART_3_DIR}Linux-6.10.5_api_headers.sh
 	bash ${PART_3_DIR}Glibc-2.40.sh
 	bash ${PART_3_DIR}Libstdc++_of_gcc.sh
+	
+	## chapter 6 Compiling with the cross toolchain more temp tools including \
+	## gcc_pass_2 and binutils_pass_2
+
+	bash ${PART_3_DIR}m4-1.4.19.sh
+	bash ${PART_3_DIR}ncurses-6.5.sh
 fi
 
 #If test suites fail a lot... https://www.linuxfromscratch.org/lfs/faq.html#no-ptys
