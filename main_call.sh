@@ -25,6 +25,7 @@ then
 	chown -R lfs:lfs part3/
 	chown lfs:lfs main_call.sh
 	rm -rf /home/lfs/main_call_lfs.sh
+	rm -rf /home/lfs/part3/
 	ln main_call.sh /home/lfs/main_call_lfs.sh
 	mkdir -v /home/lfs/part3/
 	ln part3/* /home/lfs/part3/
