@@ -1,13 +1,15 @@
 source .env #Sourcing .env for Shell and subShells variable...
 
-printf "${GREEN}DIFFUTILS-3.10.SH -- START${NC}\n"
+printf "${GREEN}${0//part3\//} -- START${NC}\n" | awk '{ print toupper($0) }'
 cd $LFS/sources/
+
+PACKAGE="diffutils-3.10.tar.xz"
+MSG_HEAD=$(echo $0 | awk '{ print toupper($0) }')
 
 if [ ! -d "${LFS}/sources/diffutils-3.10/" ]; then
 
-
-	tar -xf diffutils-3.10.tar.xz
-	cd diffutils-3.10/
+	tar -xf $PACKAGE
+	cd "${PACKAGE//.tar.xz/}/"
 
 	./configure --prefix=/usr   \
 				--host=$LFS_TGT \
@@ -16,8 +18,8 @@ if [ ! -d "${LFS}/sources/diffutils-3.10/" ]; then
 	make && make DESTDIR=$LFS install ;
 
 else
-	printf "${RED}DIFFUTILS-3.10.SH: The Coreutils have already been built if this is not true, or you need to rebuild it \
-rm the coreutilsdir in $LFS/sources and run anew...${NC}\n"
+	printf "${RED}${MSG_HEAD}: The ${PACKAGE//.tar.xz/} have already been built if this is not true, or you need to rebuild it \
+rm the ${PACKAGE//.tar.xz/} in $LFS/sources and run anew...${NC}\n"
 fi
 
-printf "${GREEN}DIFFUTILS-3.10.SH -- END${NC}\n"
+printf "${GREEN}${0//part3\//} -- END${NC}\n" | awk '{ print toupper($0) }'
