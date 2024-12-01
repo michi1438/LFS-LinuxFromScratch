@@ -18,7 +18,7 @@ if [ ! -d "${LFS}/sources/diffutils-3.10/" ]; then
 	make && make DESTDIR=$LFS install ;
 
 else
-	printf "${RED}${MSG_HEAD//part3\//}: The ${PACKAGE//.tar.xz/} have already been built if this is not true, or you need to rebuild it \
+	printf "${RED}${MSG_HEAD//PART3\//}: The ${PACKAGE//.tar.xz/} have already been built if this is not true, or you need to rebuild it \
 rm the ${PACKAGE//.tar.xz/} in $LFS/sources and run anew...${NC}\n"
 fi
 
