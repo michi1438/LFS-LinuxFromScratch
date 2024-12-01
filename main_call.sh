@@ -51,6 +51,7 @@ then
 
 	bash ${PART_3_DIR}m4-1.4.19.sh
 	bash ${PART_3_DIR}ncurses-6.5.sh
+	bash ${PART_3_DIR}bash-5.2.32.sh
 fi
 
 #If test suites fail a lot... https://www.linuxfromscratch.org/lfs/faq.html#no-ptys
