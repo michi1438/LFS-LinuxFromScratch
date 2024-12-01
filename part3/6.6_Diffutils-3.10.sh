@@ -1,6 +1,7 @@
 source .env #Sourcing .env for Shell and subShells variable...
 
-printf "${GREEN}${0//part3\//} -- START${NC}\n" | awk '{ print toupper($0) }'
+MSG_HEAD=$(echo $0 | awk '{ print toupper($0) }')
+printf "${GREEN}${MSG_HEAD//PART3\//} -- START${NC}\n"
 cd $LFS/sources/
 
 PACKAGE="diffutils-3.10.tar.xz"
@@ -22,4 +23,4 @@ else
 rm the ${PACKAGE//.tar.xz/} in $LFS/sources and run anew...${NC}\n"
 fi
 
-printf "${GREEN}${0//part3\//} -- END${NC}\n" | awk '{ print toupper($0) }'
+printf "${GREEN}${MSG_HEAD//PART3\//} -- END${NC}\n"
