@@ -11,6 +11,8 @@ if [ ! -d "${LFS}/sources/gcc-14.2.0/build2" ]; then
 	mkdir -v build2
 	cd       build
 
+	make distclean && rm ./config.cache ;
+
 	../libstdc++-v3/configure           \
 		--host=$LFS_TGT                 \
 		--build=$(../config.guess)      \
@@ -19,7 +21,9 @@ if [ ! -d "${LFS}/sources/gcc-14.2.0/build2" ]; then
 		--disable-nls                   \
 		--disable-libstdcxx-pch         \
 		--with-gxx-include-dir=/tools/$LFS_TGT/include/c++/14.2.0
-		make && make DESTDIR=$LFS install; 
+
+	make && make DESTDIR=$LFS install; 
+
 
 	rm -v $LFS/usr/lib/lib{stdc++{,exp,fs},supc++}.la
 

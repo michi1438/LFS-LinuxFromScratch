@@ -63,6 +63,12 @@ then
 	bash ${PART_3_DIR}6.10_Grep-3.11.sh
 	bash ${PART_3_DIR}6.11_Gzip-1.13.sh
 	bash ${PART_3_DIR}6.12_Make-4.4.1.sh
+	bash ${PART_3_DIR}6.13_Patch-2.7.6.sh
+	bash ${PART_3_DIR}6.14_Sed-4.9.sh
+	bash ${PART_3_DIR}6.15_Tar-1.35.sh
+	bash ${PART_3_DIR}6.16_Xz-5.6.2.sh
+	bash ${PART_3_DIR}6.17_Binutils-2.43.1_pass_2.sh
+	bash ${PART_3_DIR}6.18_Gcc-14.2.0_pass_2.sh
 
 fi
 
