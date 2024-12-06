@@ -4,7 +4,7 @@ MSG_HEAD=$(echo $0 | awk '{ print toupper($0) }')
 printf "${GREEN}${MSG_HEAD//PART3\//} -- START${NC}\n"
 cd $LFS/sources/
 
-PACKAGE="grep-3.11.tar.xz"
+PACKAGE="gzip-1.13.tar.xz"
 MSG_HEAD=$(echo $0 | awk '{ print toupper($0) }')
 
 if [ ! -d "${LFS}/sources/${PACKAGE//.tar.xz/}/" ]; then

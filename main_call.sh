@@ -61,7 +61,7 @@ then
 	bash ${PART_3_DIR}6.8_Findutils-4.10.0.sh
 	bash ${PART_3_DIR}6.9_Gawk-5.3.0.sh
 	bash ${PART_3_DIR}6.10_Grep-3.11.sh
-	bash ${PART_3_DIR}6.11_Gzip-3.11.sh
+	bash ${PART_3_DIR}6.11_Gzip-1.13.sh
 	bash ${PART_3_DIR}6.12_Make-4.4.1.sh
 
 fi
