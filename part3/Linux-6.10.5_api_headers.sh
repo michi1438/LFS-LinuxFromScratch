@@ -15,7 +15,8 @@ if [ ! -d "${LFS}/sources/linux-6.10.5/" ]; then
 	cp -rv usr/include $LFS/usr
 
 else
-	printf "${RED}LINUX-6.10.5_API_HEADERS.SH: The linux headers have already been built if this is not true, or you need to rebuild it \
+	printf "${RED}LINUX-6.10.5_API_HEADERS.SH: The linux headers have already \
+been built if this is not true, or you need to rebuild it \
 rm the The linux headers have dir in $LFS/sources and run anew...${NC}\n"
 fi
 

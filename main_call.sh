@@ -32,11 +32,12 @@ then
 
 	[ ! -e /etc/bash.bashrc ] || mv -v /etc/bash.bashrc /etc/bash.bashrc.NOUSE
 
-	printf "${RED}MAIN_CALL.SH: You have been switched to lfs user call bash main_call.sh \
-this will run the rest of the script...${NC}\n"
+	printf "${RED}MAIN_CALL.SH: You have been switched to lfs user, \
+call bash main_call.sh this will run the rest of the script...${NC}\n"
 	su --login lfs
 
 	[ ! -e /etc/bash.bashrc.NOUSE ] || mv -v /etc/bash.bashrc.NOUSE /etc/bash.bashrc
+	exit
 elif [ "$USER" = "lfs" ]
 then
 
@@ -56,8 +57,14 @@ then
 	bash ${PART_3_DIR}bash-5.2.32.sh
 	bash ${PART_3_DIR}6.5_Coreutils-9.5.sh
 	bash ${PART_3_DIR}6.6_Diffutils-3.10.sh
+	bash ${PART_3_DIR}6.7_File-5.45.sh
+	bash ${PART_3_DIR}6.8_Findutils-4.10.0.sh
+	bash ${PART_3_DIR}6.9_Gawk-5.3.0.sh
+	bash ${PART_3_DIR}6.10_Grep-3.11.sh
+	bash ${PART_3_DIR}6.11_Gzip-3.11.sh
+	bash ${PART_3_DIR}6.12_Make-4.4.1.sh
+
 fi
 
 #If test suites fail a lot... https://www.linuxfromscratch.org/lfs/faq.html#no-ptys
 #Some know and discarded testsuite fails.. https://www.linuxfromscratch.org/lfs/build-logs/12.2/
-
