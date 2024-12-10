@@ -36,7 +36,10 @@ then
 call bash main_call.sh this will run the rest of the script...${NC}\n"
 	su --login lfs
 
-	for dir in $LFS/sources/{sed-4.9/,tar-1.35/,xz-5.6.2/,file-5.45/,grep-3.11/,gzip-1.13/,m4-1.4.19/,gawk-5.3.0/,gcc-14.2.0/,glibc-2.40/,make-4.4.1/,bash-5.2.32/,ncurses-6.5/,patch-2.7.6/,linux-6.10.5/,coreutils-9.5/,diffutils-3.10/}
+	for dir in $LFS/sources/{sed-4.9/,tar-1.35/,xz-5.6.2/,file-5.45/,\
+grep-3.11/,gzip-1.13/,m4-1.4.19/,gawk-5.3.0/,gcc-14.2.0/,\
+glibc-2.40/,make-4.4.1/,bash-5.2.32/,ncurses-6.5/,patch-2.7.6/,\
+linux-6.10.5/,coreutils-9.5/,diffutils-3.10/}
 	do
 		if [ ! -d "$dir" ]; then
 			printf "${RED}MAIN_CALL.SH: Chapter 6 was not finished all the \
@@ -66,6 +69,13 @@ required directories are not there, $dir is missing...${NC}\n"
 		mount -vt tmpfs -o nosuid,nodev tmpfs $LFS/dev/shm
 	fi
 
+	cp -v .main_call_chroot.sh $LFS/main_call_chroot.sh
+	mkdir -v $LFS/part4
+	cp -rvf .part4/* $LFS/part4/
+	sed '/LFS=\|DISK=\|^ *$/d' .env > $LFS/.env
+
+	printf "${RED}MAIN_CALL.SH: This next command sends you in the chroot \
+you will have to call main_call_chroot.sh!${NC}\n"
 	chroot "$LFS" /usr/bin/env -i   \
 		HOME=/root                  \
 		TERM="$TERM"                \

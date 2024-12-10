@@ -1,3 +1,4 @@
+#!/bin/bash
 source .env #Sourcing .env for Shell and subShells variable...
 
 MSG_HEAD=$(echo $0 | awk '{ print toupper($0) }')
