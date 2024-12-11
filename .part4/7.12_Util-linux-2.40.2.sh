@@ -1,20 +1,30 @@
 #!/bin/bash
 source .env #Sourcing .env for Shell and subShells variable...
 
-MSG_HEAD=$(echo $0 | awk '{ print toupper($0) }')
-printf "${GREEN}${MSG_HEAD//PART4\//} -- START${NC}\n"
-cd sources/
+function finish {
+	echo
+	printf "${RED}${msg_head//PART4\//} something has failed and the \
+the script has been interupted...${NC}\n"
+}
+trap finish ERR
 
-PACKAGE="util-linux-2.40.2.tar.xz"
-MSG_HEAD=$(echo $0 | awk '{ print toupper($0) }')
+set -o errexit   # abort on nonzero exitstatus
+set -o nounset   # abort on unbound variable
+set -o pipefail  # don't hide errors within pipes
 
-if [ ! -d "${PACKAGE//.tar.xz/}/" ]; then
+msg_head=$(echo $0 | awk '{ print toupper($0) }')
+printf "${GREEN}${msg_head//PART4\//} -- START${NC}\n"
+pushd "sources/"
 
-	tar -xf $PACKAGE
-	cd "${PACKAGE//.tar.xz/}/"
+package="util-linux-2.40.2.tar.xz"
+msg_head=$(echo $0 | awk '{ print toupper($0) }')
 
+if [ ! -d "${package//.tar.xz/}/" ]; then
+
+	tar -xf $package
+	(
+	cd "${package//.tar.xz/}/"
 	mkdir -pv /var/lib/hwclock
-
 	./configure --libdir=/usr/lib     \
 				--runstatedir=/run    \
 				--disable-chfn-chsh   \
@@ -29,19 +39,18 @@ if [ ! -d "${PACKAGE//.tar.xz/}/" ]; then
 				--without-python      \
 				ADJTIME_PATH=/var/lib/hwclock/adjtime \
 				--docdir=/usr/share/doc/util-linux-2.40.2
-
 	make
-	[ $? != 0 ]
-		exit 1;
-	
 	make install
-
+	)
 else
 
-	printf "${RED}${MSG_HEAD//PART4\//}: The ${PACKAGE//.tar.xz/} dir \
+	printf "${RED}${msg_head//PART4\//}: The ${package//.tar.xz/} dir \
 has already been built if this is false or you want to rebuild it, \
-rm -rf /sources/${PACKAGE//.tar.xz/}. Run anew...${NC}\n"
-
+rm -rf /sources/${package//.tar.xz/}. Run anew...${NC}\n"
+	exit 0;
+	
 fi
+popd
 
-printf "${GREEN}${MSG_HEAD//PART4\//} -- END${NC}\n"
+printf "${GREEN}${msg_head//PART4\//} -- END${NC}\n"
+exit 0;

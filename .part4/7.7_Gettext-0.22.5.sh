@@ -1,32 +1,42 @@
 #!/usr/bin/bash
 source .env #Sourcing .env for Shell and subShells variable...
 
-MSG_HEAD=$(echo $0 | awk '{ print toupper($0) }')
-printf "${GREEN}${MSG_HEAD//PART4\//} -- START${NC}\n"
-cd sources/
+function finish {
+	echo
+	printf "${RED}${msg_head//PART4\//} something has failed and the \
+the script has been interupted...${NC}\n"
+}
+trap finish ERR
 
-PACKAGE="gettext-0.22.5.tar.xz"
-MSG_HEAD=$(echo $0 | awk '{ print toupper($0) }')
+set -o errexit   # abort on nonzero exitstatus
+set -o nounset   # abort on unbound variable
+set -o pipefail  # don't hide errors within pipes
 
-if [ ! -d "${PACKAGE//.tar.xz/}/" ]; then
+msg_head=$(echo ${0} | awk '{ print toupper($0) }')
+printf "${GREEN}${msg_head//PART4\//} -- START${NC}\n"
+pushd "sources/"
 
-	tar -xf $PACKAGE
-	cd "${PACKAGE//.tar.xz/}/"
-		
-	./configure --disable-shared
+package="gettext-0.22.5.tar.xz"
+msg_head=$(echo ${0}| awk '{ print toupper($0) }')
 
-	make;
-	[ $? != 0 ]
-		exit 1;
+if [ ! -d "${package//.tar.xz/}/" ]; then
 
-	cp -v gettext-tools/src/{msgfmt,msgmerge,xgettext} /usr/bin 
-
+	tar --extract --file "${package}"
+	(
+		cd "${package//.tar.xz/}/"
+		./configure --disable-shared
+		make;
+		cp -v gettext-tools/src/{msgfmt,msgmerge,xgettext} /usr/bin 
+	)
 else
 
-	printf "${RED}${MSG_HEAD//PART4\//}: The ${PACKAGE//.tar.xz/} dir \
+	printf "${RED}${msg_head//PART4\//}: The ${package//.tar.xz/} dir \
 has already been built if this is false or you want to rebuild it, \
-rm -rf /sources/${PACKAGE//.tar.xz/}. Run anew...${NC}\n"
-
+rm -rf /sources/${package//.tar.xz/}. Run anew...${NC}\n"
+	exit 0;
 fi
+popd
 
-printf "${GREEN}${MSG_HEAD//PART4\//} -- END${NC}\n"
+printf "${GREEN}${msg_head//PART4\//} -- END${NC}\n"
+exit 0;
+

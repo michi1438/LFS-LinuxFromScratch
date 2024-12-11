@@ -14,30 +14,11 @@ set -o pipefail  # don't hide errors within pipes
 
 msg_head=$(echo $0 | awk '{ print toupper($0) }')
 printf "${GREEN}${msg_head//PART4\//} -- START${NC}\n"
-pushd "sources/"
 
-package="bison-3.8.2.tar.xz"
-msg_head=$(echo $0 | awk '{ print toupper($0) }')
+rm --recursive --force /usr/share/{info,man,doc}/* || true
+find /usr/{lib,libexec} -name \*.la -delete || true
+rm -rf /tools || true
 
-if [ ! -d "${package//.tar.xz/}/" ]; then
-
-	tar -xf $package
-	(
-	cd "${package//.tar.xz/}/"
-	./configure --prefix=/usr \
-				--docdir=/usr/share/doc/bison-3.8.2
-	make
-	make install
-	)
-else
-
-	printf "${RED}${msg_head//PART4\//}: The ${package//.tar.xz/} dir \
-has already been built if this is false or you want to rebuild it, \
-rm -rf /sources/${package//.tar.xz/}. Run anew...${NC}\n"
-	exit 0;
-fi
-popd
 
 printf "${GREEN}${msg_head//PART4\//} -- END${NC}\n"
 exit 0;
-
