@@ -15,21 +15,33 @@ set -o pipefail  # don't hide errors within pipes
 msg_head=$(echo $0 | awk '{ print toupper($0) }')
 printf "${GREEN}${msg_head//PART3\//} -- START${NC}\n"
 pushd "${LFS}/sources/"
-	package="file-5.45.tar.gz"
+	package="ncurses-6.5.tar.gz"
 	if [ ! -d "${package//.tar.gz/}/" ]; then
 		tar --extract --file $package
 			pushd "${package//.tar.gz/}/"
+				sed -i s/mawk// configure
 				mkdir build
 				pushd build
-					../configure --disable-bzlib      \
-							   --disable-libseccomp \
-							   --disable-xzlib      \
-							   --disable-zlib
-					make
+					../configure
+					make -C include
+					make -C progs tic
 				popd
-				./configure --prefix=/usr --host=$LFS_TGT --build=$(./config.guess)
-				make FILE_COMPILE=$(pwd)/build/src/file && make DESTDIR=$LFS install ;
-				rm -v $LFS/usr/lib/libmagic.la
+				./configure --prefix=/usr                \
+							--host=$LFS_TGT              \
+							--build=$(./config.guess)    \
+							--mandir=/usr/share/man      \
+							--with-manpage-format=normal \
+							--with-shared                \
+							--without-normal             \
+							--with-cxx-shared            \
+							--without-debug              \
+							--without-ada                \
+							--disable-stripping
+				make
+				make DESTDIR=$LFS TIC_PATH=$(pwd)/build/progs/tic install
+				ln -sv libncursesw.so $LFS/usr/lib/libncurses.so
+				sed -e 's/^#if.*XOPEN.*$/#if 1/' \
+					-i $LFS/usr/include/curses.h
 			popd
 	else
 		printf "${RED}${msg_head//PART3\//}: ${package//.tar.gz/}/ has already \

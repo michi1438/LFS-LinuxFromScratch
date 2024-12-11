@@ -16,16 +16,27 @@ msg_head=$(echo $0 | awk '{ print toupper($0) }')
 printf "${GREEN}${msg_head//PART3\//} -- START${NC}\n"
 pushd "${LFS}/sources/"
 
-package="grep-3.11.tar.xz"
+package="gcc-14.2.0.tar.xz"
 
-if [ ! -d "${package//.tar.xz/}/" ]; then
-	tar --extract --force $package
+if [ ! -d "${package//.tar.xz/}/build2" ]; then
 	pushd "${package//.tar.xz/}/"
-		./configure --prefix=/usr	\
-				--host=$LFS_TGT		\
-				--build=$(./build-aux/config.guess)
-		make && make DESTDIR=$LFS install ;
-	popd
+		mkdir -v build
+		mkdir -v build2
+		cd       build
+		(
+			make distclean && rm ./config.cache ;
+			../libstdc++-v3/configure           \
+				--host=$LFS_TGT                 \
+				--build=$(../config.guess)      \
+				--prefix=/usr                   \
+				--disable-multilib              \
+				--disable-nls                   \
+				--disable-libstdcxx-pch         \
+				--with-gxx-include-dir=/tools/$LFS_TGT/include/c++/14.2.0
+			make && make DESTDIR=$LFS install; 
+			rm -v $LFS/usr/lib/lib{stdc++{,exp,fs},supc++}.la
+		)
+	popd	
 else
 	printf "${RED}${msg_head//PART3\//}: ${package//.tar.xz/}/ has already \
 been built if this is not true, or you need to rebuild it \

@@ -20,7 +20,6 @@ else
 fi
 
 mkdir -pv ${LFS}/src
-mkdir -pv ${LFS}/src
 CHECK_MOUNT=$(mount | grep -m 1 -o "${LFS}/src")
 if [ "$CHECK_MOUNT" != "${LFS}/src" ]; then
 	mount -v -t ext4 ${DISK}3 ${LFS}/src

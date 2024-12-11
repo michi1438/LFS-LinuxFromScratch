@@ -19,6 +19,5 @@ rm --recursive --force /usr/share/{info,man,doc}/* || true
 find /usr/{lib,libexec} -name \*.la -delete || true
 rm -rf /tools || true
 
-
 printf "${GREEN}${msg_head//PART4\//} -- END${NC}\n"
 exit 0;
